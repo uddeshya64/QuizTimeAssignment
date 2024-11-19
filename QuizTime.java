@@ -15,7 +15,7 @@ public class QuizTime {
         return true;
     }
 
-    // Checks if a string is already in the list
+    // Checks for duplicate strings
     private static boolean isAlreadyPrinted(String[] printedPalindromes, int count, String str) {
         for (int i = 0; i < count; i++) {
             if (printedPalindromes[i].equals(str)) {
@@ -25,23 +25,23 @@ public class QuizTime {
         return false;
     }
 
-    // Finds unique palindromic substrings using recursion
+    // Finds unique palindrome substring
     private static void findPalindromes(String str, int start, int end, String[] printedPalindromes, int[] count) {
-        if (str.length() > 100) { // Check input length
+        if (str.length() > 100) { 
             System.out.println(QuizTimeConstants.STRING_LENGTH_ERROR);
             return;
         }
-        if (start > str.length()) return; // Base case
-        if (end > str.length()) { // Move to next starting index
+        if (start > str.length()) return; 
+        if (end > str.length()) { 
             findPalindromes(str, start + 1, start + 2, printedPalindromes, count);
             return;
         }
         String substring = str.substring(start, end);
         if (isPalindrome(substring) && !isAlreadyPrinted(printedPalindromes, count[0], substring)) {
-            printedPalindromes[count[0]++] = substring; // Store unique palindrome
+            printedPalindromes[count[0]++] = substring; 
             System.out.println(substring);
         }
-        findPalindromes(str, start, end + 1, printedPalindromes, count); // Extend substring
+        findPalindromes(str, start, end + 1, printedPalindromes, count); 
     }
 
     public static void main(String[] args) {
@@ -49,16 +49,11 @@ public class QuizTime {
         boolean runAgain = true;
 
         while (runAgain) {
-            // Input string
             System.out.println(QuizTimeConstants.ENTER_STRING);
             String input = scanner.nextLine();
             System.out.println(QuizTimeConstants.OUTPUT_PREFIX + input + QuizTimeConstants.OUTPUT_SUFFIX);
-
-            // Initialize storage
             String[] printedPalindromes = new String[1000];
             int[] count = {0};
-
-            // Find palindromes
             findPalindromes(input, 0, 1, printedPalindromes, count);
 
             // Ask to run again
